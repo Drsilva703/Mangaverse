@@ -1,0 +1,6 @@
+{
+  "summary": "Plano de implementação para integrar a chave Pix aleatória do usuário (4970bdb1-d6e0-4a23-9d06-365d1f89687c) como chave padrão do MangaVerse, com gerador de QR Code EMV / Pix Copia e Cola, botões rápidos de valor e gestão editável no Painel Administrativo.",
+  "updatedAt": "2026-10-12T19:21:54.869309483Z",
+  "requestFeedback": true,
+  "userFacing": true
+}

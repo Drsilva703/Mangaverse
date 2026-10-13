@@ -1,0 +1,66 @@
+@import "tailwindcss";
+
+html, body {
+  overflow-x: hidden;
+  max-width: 100vw;
+  width: 100%;
+}
+
+@layer base {
+  body {
+    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  }
+}
+
+.safe-area-bottom {
+  padding-bottom: max(0.5rem, env(safe-area-inset-bottom));
+}
+
+/* Custom smooth dark scrollbar */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0b0d13;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #252a3a;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #3b435c;
+}
+
+/* Reader hide controls transitions */
+.reader-controls-hidden {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-100%);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reader-controls-visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reader-bottom-hidden {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(100%);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reader-bottom-visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+

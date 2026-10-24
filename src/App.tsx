@@ -235,7 +235,7 @@ export default function App() {
       {/* Main View Area */}
       <main className="flex-1 w-full pb-14 md:pb-0">
         {currentTab === 'anime' && (
-          <div hidden={!!selectedAnime}>
+          <div hidden={!!selectedAnime || !!selectedManga}>
             <AnimeView onSelect={handleSelectAnime} />
           </div>
         )}

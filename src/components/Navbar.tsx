@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
-import { BookOpen, Search, Bookmark, Bell, Heart, Settings, Compass, MessageSquare, Shield } from 'lucide-react';
+import React, { useEffect, useState } from 'react';
+import { BookOpen, Search, Bookmark, Bell, Heart, Settings, Compass, MessageSquare, Shield, Film } from 'lucide-react';
 import { getStoredLibrary } from '../services/storage';
+import { getAnimeLibrary, ANIME_LIBRARY_EVENT } from '../services/animeService';
 import { AdminUser } from '../types/manga';
 
 interface NavbarProps {
-  currentTab: 'home' | 'search' | 'library' | 'updates' | 'chat';
-  onSelectTab: (tab: 'home' | 'search' | 'library' | 'updates' | 'chat') => void;
+  currentTab: 'home' | 'search' | 'library' | 'updates' | 'chat' | 'anime';
+  onSelectTab: (tab: 'home' | 'search' | 'library' | 'updates' | 'chat' | 'anime') => void;
   onOpenSettings: () => void;
   onOpenSupport: () => void;
   onSearchSubmit: (query: string) => void;
@@ -26,7 +27,14 @@ export const Navbar: React.FC<NavbarProps> = ({
 }) => {
   const [quickQuery, setQuickQuery] = useState('');
   const library = getStoredLibrary();
-  const libraryCount = library.length;
+  const [animeCount, setAnimeCount] = useState(() => getAnimeLibrary().length);
+  useEffect(() => {
+    const refresh = () => setAnimeCount(getAnimeLibrary().length);
+    window.addEventListener(ANIME_LIBRARY_EVENT, refresh);
+    window.addEventListener('storage', refresh);
+    return () => { window.removeEventListener(ANIME_LIBRARY_EVENT, refresh); window.removeEventListener('storage', refresh); };
+  }, []);
+  const libraryCount = library.length + animeCount;
 
   const handleSearchKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter' && quickQuery.trim()) {
@@ -39,7 +47,7 @@ export const Navbar: React.FC<NavbarProps> = ({
     <>
       {/* Top Main Navbar */}
       <header className="sticky top-0 z-40 w-full max-w-full border-b border-zinc-800/80 bg-zinc-950/90 backdrop-blur-md">
-        <div className="max-w-7xl mx-auto px-3 sm:px-6 h-14 sm:h-16 flex items-center justify-between gap-2 sm:gap-4">
+        <div className="max-w-7xl mx-auto px-3 sm:px-6 min-h-14 sm:min-h-16 py-2 flex flex-wrap items-center justify-between gap-2 sm:gap-4">
           {/* Logo & Brand */}
           <div
             onClick={() => onSelectTab('home')}
@@ -55,13 +63,13 @@ export const Navbar: React.FC<NavbarProps> = ({
                 </span>
               </div>
               <p className="hidden lg:block text-[10px] text-zinc-400 -mt-0.5">
-                Catálogo & Leitor de Mangás
+                Mangás & Animes
               </p>
             </div>
           </div>
 
           {/* Desktop Navigation Links */}
-          <nav className="hidden md:flex items-center gap-1 shrink-0 py-1">
+          <nav aria-label="Navegação principal" className="hidden md:flex order-last w-full items-center justify-center gap-1 shrink-0 py-1">
             <button
               onClick={() => onSelectTab('home')}
               className={`px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-colors ${
@@ -81,6 +89,9 @@ export const Navbar: React.FC<NavbarProps> = ({
               }`}
             >
               Catálogo & Filtros
+            </button>
+            <button onClick={() => onSelectTab('anime')} aria-current={currentTab === 'anime' ? 'page' : undefined} className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 ${currentTab === 'anime' ? 'text-white bg-zinc-800' : 'text-zinc-400 hover:text-white'}`}>
+              <Film className="w-3.5 h-3.5" />Animes
             </button>
             <button
               onClick={() => onSelectTab('library')}
@@ -204,6 +215,10 @@ export const Navbar: React.FC<NavbarProps> = ({
         >
           <Compass className={`w-5 h-5 ${currentTab === 'search' ? 'stroke-[2.5]' : 'stroke-2'}`} />
           <span className="text-[10px] mt-0.5">Catálogo</span>
+        </button>
+
+        <button onClick={() => onSelectTab('anime')} aria-current={currentTab === 'anime' ? 'page' : undefined} className={`flex-1 flex flex-col items-center justify-center py-1.5 rounded-lg ${currentTab === 'anime' ? 'text-indigo-400 font-bold' : 'text-zinc-400'}`}>
+          <Film className="w-5 h-5" /><span className="text-[10px] mt-0.5">Animes</span>
         </button>
 
         <button

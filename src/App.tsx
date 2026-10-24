@@ -4,6 +4,8 @@
  */
 
 import React, { useState, useEffect } from 'react';
+import { Anime } from './types/anime';
+import { AnimeView, AnimeDetailsView, AnimeLibraryView } from './views/AnimeView';
 import { MangaItem, MangaChapter, UserSettings, AdminUser } from './types/manga';
 import { fetchMangaChapters } from './services/api';
 import { getStoredSettings, getReadChaptersCount } from './services/storage';
@@ -24,7 +26,9 @@ import { UpdatesView } from './views/UpdatesView';
 import { ChatView } from './views/ChatView';
 
 export default function App() {
-  const [currentTab, setCurrentTab] = useState<'home' | 'search' | 'library' | 'updates' | 'chat'>('home');
+  const [currentTab, setCurrentTab] = useState<'home' | 'search' | 'library' | 'updates' | 'chat' | 'anime'>('home');
+  const [selectedAnime, setSelectedAnime] = useState<Anime | null>(null);
+  const [libraryKind, setLibraryKind] = useState<'manga' | 'anime'>('manga');
   const [selectedManga, setSelectedManga] = useState<MangaItem | null>(null);
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
@@ -160,7 +164,13 @@ export default function App() {
     window.scrollTo({ top: 0, behavior: 'instant' as any });
   };
 
+  const handleSelectAnime = (anime: Anime) => {
+    setSelectedAnime(anime);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   const handleSelectManga = (manga: MangaItem) => {
+    setSelectedAnime(null);
     setSelectedManga(manga);
     setReadingSession(null);
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -175,6 +185,7 @@ export default function App() {
   };
 
   const handleSearchSubmit = (query: string) => {
+    setSelectedAnime(null);
     setSearchQuery(query);
     setSelectedManga(null);
     setReadingSession(null);
@@ -209,6 +220,7 @@ export default function App() {
       <Navbar
         currentTab={currentTab}
         onSelectTab={(tab) => {
+          setSelectedAnime(null);
           setCurrentTab(tab);
           setSelectedManga(null);
         }}
@@ -222,7 +234,18 @@ export default function App() {
 
       {/* Main View Area */}
       <main className="flex-1 w-full pb-14 md:pb-0">
-        {selectedManga ? (
+        {currentTab === 'anime' && (
+          <div hidden={!!selectedAnime}>
+            <AnimeView onSelect={handleSelectAnime} />
+          </div>
+        )}
+        {selectedAnime ? (
+          <AnimeDetailsView
+            key={selectedAnime.id}
+            anime={selectedAnime}
+            onBack={() => setSelectedAnime(null)}
+          />
+        ) : selectedManga ? (
           <DetailsView
             manga={selectedManga}
             onBack={handleBackFromDetails}
@@ -251,14 +274,18 @@ export default function App() {
               />
             )}
 
-            {currentTab === 'library' && (
-              <LibraryView
+            {currentTab === 'library' && <>
+              <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-6 pb-4 flex gap-2" role="group" aria-label="Tipo de biblioteca">
+                <button aria-pressed={libraryKind === 'manga'} onClick={() => setLibraryKind('manga')} className={`px-4 py-2 rounded-xl text-sm font-semibold ${libraryKind === 'manga' ? 'bg-indigo-600 text-white' : 'bg-zinc-900 text-zinc-400'}`}>Mangás</button>
+                <button aria-pressed={libraryKind === 'anime'} onClick={() => setLibraryKind('anime')} className={`px-4 py-2 rounded-xl text-sm font-semibold ${libraryKind === 'anime' ? 'bg-indigo-600 text-white' : 'bg-zinc-900 text-zinc-400'}`}>Animes</button>
+              </div>
+              {libraryKind === 'anime' ? <AnimeLibraryView onSelect={handleSelectAnime} onExplore={() => setCurrentTab('anime')} /> : <LibraryView
                 onSelectManga={handleSelectManga}
                 onReadChapter={handleReadChapter}
                 onOpenSettings={() => setIsSettingsOpen(true)}
                 onOpenExplore={() => setCurrentTab('search')}
-              />
-            )}
+              />}
+            </>}
 
             {currentTab === 'updates' && (
               <UpdatesView
@@ -279,7 +306,7 @@ export default function App() {
       </main>
 
       {/* Footer */}
-      {!selectedManga && currentTab !== 'chat' && (
+      {!selectedManga && !selectedAnime && currentTab !== 'chat' && (
         <Footer
           onOpenSupport={() => setIsSupportOpen(true)}
           onOpenSettings={() => setIsSettingsOpen(true)}

@@ -1,3 +1,4 @@
+import { animeRouter } from './src/server/animeApi';
 import express from 'express';
 import { createServer as createViteServer } from 'vite';
 import path from 'path';
@@ -1087,6 +1088,7 @@ function resolveMangaDexUuids(id: string, title?: string): string[] {
 async function startServer() {
   const app = express();
   const PORT = parseInt(process.env.PORT || '3000', 10);
+  app.use('/api/anime', animeRouter);
 
   app.use(express.json());
 

@@ -1247,7 +1247,7 @@ async function startServer() {
       chapterNumber: String(chapterNumber),
       title: title || `Capítulo ${chapterNumber}`,
       volume: calculateVolume(mangaId, parseFloat(chapterNumber) || 1),
-      scanlationGroup: scanlationGroup || 'Upload Oficial MangaVerse',
+      scanlationGroup: scanlationGroup || 'Upload Oficial MangáOreo',
       language: 'pt-br',
       pages: pageUrls,
       publishedAt: new Date().toISOString()
@@ -1879,7 +1879,7 @@ async function startServer() {
           volume: customCh.volume || calculateVolume(id, parseFloat(customCh.chapterNumber) || 1),
           title: customCh.title,
           language: customCh.language || 'pt-br',
-          scanlationGroup: customCh.scanlationGroup || 'Upload Oficial MangaVerse (ADM)',
+          scanlationGroup: customCh.scanlationGroup || 'Upload Oficial MangáOreo (ADM)',
           publishedAt: customCh.publishedAt,
           pagesCount: customCh.pages.length
         });
@@ -2215,7 +2215,7 @@ async function startServer() {
     <rect x="270" y="460" width="260" height="42" fill="url(#accentGrad)" rx="21"/>
     <text x="400" y="487" text-anchor="middle" fill="#ffffff" font-family="system-ui, sans-serif" font-size="16" font-weight="800" letter-spacing="1">CAPÍTULO ${chapterNum}</text>
     
-    <text x="400" y="560" text-anchor="middle" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="14">Tradução em Português · Scan Oficial MangaVerse</text>
+    <text x="400" y="560" text-anchor="middle" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="14">Tradução em Português · Scan Oficial MangáOreo</text>
     <text x="400" y="590" text-anchor="middle" fill="#64748b" font-family="system-ui, sans-serif" font-size="12">Alta Definição Digital 2.0</text>
 
     <!-- Scanlator Box Panel -->
@@ -2268,7 +2268,7 @@ async function startServer() {
   <!-- Bottom Page Marker -->
   <line x1="45" y1="1140" x2="755" y2="1140" stroke="#2D3346" stroke-width="1"/>
   <text x="400" y="1165" text-anchor="middle" fill="#64748b" font-family="system-ui, sans-serif" font-size="11" font-weight="500">
-    ${title} · Capítulo ${chapterNum} · Página ${pageNum} de ${totalPages} · MangaVerse BR
+    ${title} · Capítulo ${chapterNum} · Página ${pageNum} de ${totalPages} · MangáOreo BR
   </text>
 </svg>`;
 
@@ -2390,7 +2390,7 @@ async function startServer() {
 
       if (!r.ok) {
         // If origin returned non-200, fallback to digital canvas page so reader never fails
-        return res.redirect('/api/manga/page-canvas?page=1&title=MangaVerse');
+        return res.redirect('/api/manga/page-canvas?page=1&title=Mang%C3%A1Oreo');
       }
 
       const contentType = r.headers.get('content-type') || 'image/jpeg';
@@ -2410,7 +2410,7 @@ async function startServer() {
       return res.send(buffer);
     } catch (err) {
       // In case of network timeout or proxy failure, serve fallback canvas page
-      return res.redirect('/api/manga/page-canvas?page=1&title=MangaVerse');
+      return res.redirect('/api/manga/page-canvas?page=1&title=Mang%C3%A1Oreo');
     }
   });
 
@@ -2429,7 +2429,7 @@ async function startServer() {
   }
 
   app.listen(PORT, '0.0.0.0', () => {
-    console.log(`MangaVerse multi-api server running on http://localhost:${PORT}`);
+    console.log(`MangáOreo multi-api server running on http://localhost:${PORT}`);
   });
 }
 

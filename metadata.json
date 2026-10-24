@@ -1,5 +1,5 @@
 {
-  "name": "MangaVerse - Leitor de Mangás",
+  "name": "MangáOreo - Leitor de Mangás",
   "description": "Aplicação web moderna de leitura e catálogo de mangás e manhwas com suporte a múltiplas fontes de dados (MangaDex e ComicK) e interface responsiva otimizada para mobile e desktop.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]

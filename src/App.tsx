@@ -114,7 +114,7 @@ export default function App() {
             chapterNumber: chapterNumber || '1',
             title: `Capítulo ${chapterNumber || '1'}`,
             language: 'pt-br',
-            scanlationGroup: 'MangaVerse Digital',
+            scanlationGroup: 'MangáOreo Digital',
             publishedAt: new Date().toISOString(),
             pagesCount: 16
           }

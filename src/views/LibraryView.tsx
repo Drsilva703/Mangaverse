@@ -152,7 +152,7 @@ export const LibraryView: React.FC<LibraryViewProps> = ({
           slug: item.mangaId,
           title: item.mangaTitle,
           coverUrl: item.coverUrl,
-          description: 'Mangá disponível offline no MangaVerse.',
+          description: 'Mangá disponível offline no MangáOreo.',
           genres: ['Offline'],
           status: 'ongoing',
           authors: [],

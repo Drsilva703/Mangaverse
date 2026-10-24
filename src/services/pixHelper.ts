@@ -1,5 +1,5 @@
 /**
- * Pix Helper for MangaVerse
+ * Pix Helper for MangáOreo
  * Generates standard Banco Central do Brasil BR Code (EMV TLV) for "Pix Copia e Cola"
  * and real camera-scannable QR Codes for user donations.
  */
@@ -13,7 +13,7 @@ export interface PixPayloadOptions {
 }
 
 export const OFFICIAL_PIX_KEY = '4970bdb1-d6e0-4a23-9d06-365d1f89687c';
-export const DEFAULT_MERCHANT_NAME = 'MangaVerse Apoio';
+export const DEFAULT_MERCHANT_NAME = 'MangáOreo Apoio';
 export const DEFAULT_MERCHANT_CITY = 'SAO PAULO';
 
 /**
@@ -60,7 +60,7 @@ export function calculateCRC16(payload: string): string {
  */
 export function generatePixPayload(options: PixPayloadOptions): string {
   const rawKey = options.key?.trim() || OFFICIAL_PIX_KEY;
-  const merchantName = normalizeAscii(options.merchantName || DEFAULT_MERCHANT_NAME, 25) || 'MANGAVERSE';
+  const merchantName = normalizeAscii(options.merchantName || DEFAULT_MERCHANT_NAME, 25) || 'MANGAOREO';
   const merchantCity = normalizeAscii(options.merchantCity || DEFAULT_MERCHANT_CITY, 15) || 'SAO PAULO';
   const txId = options.txId ? normalizeAscii(options.txId, 25) : '***';
 

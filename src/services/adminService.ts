@@ -370,9 +370,9 @@ export async function fetchPixConfig(): Promise<PixConfigData> {
   }
   return {
     key: '4970bdb1-d6e0-4a23-9d06-365d1f89687c',
-    merchantName: 'MangaVerse Apoio',
+    merchantName: 'MangáOreo Apoio',
     merchantCity: 'SAO PAULO',
-    description: 'Apoio aos servidores e acervo MangaVerse',
+    description: 'Apoio aos servidores e acervo MangáOreo',
     suggestedAmounts: [5, 10, 25, 50]
   };
 }
@@ -392,9 +392,9 @@ export async function savePixConfig(patch: Partial<PixConfigData>): Promise<PixC
   }
   return {
     key: patch.key || '4970bdb1-d6e0-4a23-9d06-365d1f89687c',
-    merchantName: patch.merchantName || 'MangaVerse Apoio',
+    merchantName: patch.merchantName || 'MangáOreo Apoio',
     merchantCity: patch.merchantCity || 'SAO PAULO',
-    description: patch.description || 'Apoio aos servidores e acervo MangaVerse',
+    description: patch.description || 'Apoio aos servidores e acervo MangáOreo',
     suggestedAmounts: patch.suggestedAmounts || [5, 10, 25, 50]
   };
 }

@@ -154,7 +154,7 @@ export const ReaderView: React.FC<ReaderViewProps> = ({
             );
             setPages(fallbackUrls);
             setDirectPages(fallbackUrls);
-            setSourceBadge('Edição Digital MangaVerse');
+            setSourceBadge('Edição Digital MangáOreo');
             saveReadingProgress(manga, currentChapter.id, currentChapter.chapterNumber, 1, totalFallback);
           }
           setLoading(false);
@@ -167,7 +167,7 @@ export const ReaderView: React.FC<ReaderViewProps> = ({
           );
           setPages(fallbackUrls);
           setDirectPages(fallbackUrls);
-          setSourceBadge('Edição Digital MangaVerse');
+          setSourceBadge('Edição Digital MangáOreo');
           saveReadingProgress(manga, currentChapter.id, currentChapter.chapterNumber, 1, totalFallback);
           setLoading(false);
         }

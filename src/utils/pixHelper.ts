@@ -4,7 +4,7 @@
  */
 
 export const DEFAULT_PIX_KEY = '4970bdb1-d6e0-4a23-9d06-365d1f89687c';
-export const DEFAULT_PIX_NAME = 'MangaVerse / Denilson';
+export const DEFAULT_PIX_NAME = 'MangáOreo / Denilson';
 export const DEFAULT_PIX_CITY = 'Brasil';
 
 /**

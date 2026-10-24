@@ -59,7 +59,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             <div>
               <div className="flex items-center gap-1">
                 <span className="text-base sm:text-lg font-black tracking-tight text-white group-hover:text-indigo-300 transition-colors">
-                  Manga<span className="text-indigo-400">Verse</span>
+                  Mangá<span className="text-indigo-400">Oreo</span>
                 </span>
               </div>
               <p className="hidden lg:block text-[10px] text-zinc-400 -mt-0.5">
@@ -153,7 +153,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               <button
                 onClick={onOpenAdminModal}
                 className="px-2.5 py-1.5 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/30 text-xs font-bold transition-all flex items-center gap-1.5 shrink-0 shadow-sm shadow-amber-500/20"
-                title="Painel de Administração MangaVerse"
+                title="Painel de Administração MangáOreo"
               >
                 <Shield className="w-3.5 h-3.5 text-amber-400" />
                 <span className="hidden sm:inline">Painel ADM</span>
